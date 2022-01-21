@@ -1,27 +1,17 @@
 # frozen_string_literal: true
 
+require_relative 'question_builder'
+
 class GenerateQuestionsService
   class << self
-    def call(param)
-      questions = []
-
-      if param == '%'
-        questions << {
-          title: 'What percent of American adults think that chocolate milk comes from brown cows?',
-          options: %w[0 1 7 12],
-          correct: '12',
-          points: 10
-        }
-      elsif param == 'equation'
-        questions << {
-          title: '1 + x = 2',
-          options: ['x = 1', 'x = 5', 'x = i', 'x = +-7'],
-          correct: 'x = 1',
-          points: 10
-        }
+    def call(question_type, call_a_friend)
+      if question_type == '%'
+        QuestionBuilder.build_expert
+      elsif question_type == 'equation'
+        QuestionBuilder.build_math_wiz
+      else
+        QuestionBuilder.build_student(call_a_friend)
       end
-
-      questions
     end
   end
 end

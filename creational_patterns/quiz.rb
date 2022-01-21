@@ -10,22 +10,20 @@ class Quiz
     @user_type = user_type
     validate
 
-    @questions = GenerateQuestionsService.call(user_type_mapping)
+    @questions = GenerateQuestionsService.call(user_type_mapping, call_a_friend)
   end
 
   private
 
   def validate
-    raise 'Invalid user type' unless %w[expert math_wiz].include?(user_type)
+    raise 'Invalid user type' unless %w[expert math_wiz student].include?(user_type)
   end
 
   def user_type_mapping
     {
       expert: '%',
-      math_wiz: 'equation'
+      math_wiz: 'equation',
+      student: 'student'
     }[user_type.to_sym]
   end
 end
-
-puts Quiz.new('expert').questions
-puts Quiz.new('math_wiz').questions
