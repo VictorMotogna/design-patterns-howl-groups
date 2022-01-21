@@ -12,7 +12,7 @@ RSpec.describe Quiz do
 
     context 'when the user is student' do
       it 'does not raise error for student type' do
-        # expect { Quiz.new('student') }.to_not raise_error
+        expect { Quiz.new('student') }.to_not raise_error
       end
     end
   end
